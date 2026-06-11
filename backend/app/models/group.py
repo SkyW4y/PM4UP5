@@ -8,4 +8,21 @@ class Group(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(128), unique=True, index=True, nullable=False)
-    users = relationship("User", back_populates="group_rel")
+    leader_id = Column(Integer, ForeignKey("users.id"), nullable=True, ondelete="SET NULL")
+
+    users = relationship(
+        "User",
+        back_populates="group_rel",
+        foreign_keys="User.group_id"
+    )
+    leader = relationship(
+        "User",
+        foreign_keys=[leader_id]
+    )
+    subjects = relationship(
+        "Subject",
+        back_populates="group",
+        cascade="all, delete-orphan"
+    )
+
+

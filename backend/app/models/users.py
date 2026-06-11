@@ -1,6 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Boolean
 from sqlalchemy.orm import relationship
 from app.database import Base
+from enum import Enum
+
 
 class User(Base):
     __tablename__ = "users"
@@ -11,9 +13,22 @@ class User(Base):
     hashed_password = Column(String(255), nullable=False)
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
-    middle_name = Column(String(128), nullable=True)
-    group = Column(Integer, ForeignKey("groups.id"), nullable=True)
-    group_rel = relationship("Group", back_populates="users")
+    group_id = Column(Integer, ForeignKey("groups.id"), nullable=True)
+    tasks = relationship("UserSubjTasks", back_populates="user", cascade="all, delete-orphan")
 
+    group_rel = relationship(
+        "Group",
+        back_populates="users",
+        foreign_keys=[group_id]
+    )
 
+class UserSubjTasks(Base):
+    __tablename__ = "user_subject_tasks"
 
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    subject_task_id = Column(Integer, ForeignKey("subject_tasks.id"), nullable=False)
+    status = Column(Boolean, default=False, nullable=False)
+
+    user = relationship("User", back_populates="user_subject_tasks")
+    subject_task = relationship("SubjectTask", back_populates="user_subject_tasks")
