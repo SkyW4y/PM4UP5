@@ -6,10 +6,16 @@ function App() {
   return (
     <>
       <nav className='high_navBar'>
-        <p></p>
+        <img className='logo_navBar' src="logo" alt="#" />
         <p className='text_navBar'>DashBoard</p>
-        <button className='profile_btn'><a href="profile.html">Профиль</a></button>
+        <a href="profile.html"><button className='profile_btn'>Профиль</button></a>
       </nav>
+      <aside>
+        
+        <button>1</button>
+        <button>2</button>
+        <button>3</button>
+      </aside>
     </>
   )
 }
