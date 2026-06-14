@@ -15,6 +15,7 @@ class User(Base):
     last_name = Column(String(128), nullable=True)
     group_id = Column(Integer, ForeignKey("groups.id"), nullable=True)
     tasks = relationship("UserSubjTasks", back_populates="user", cascade="all, delete-orphan")
+    avatar = Column(String(2048), nullable=False, default="url")
 
     group_rel = relationship(
         "Group",
