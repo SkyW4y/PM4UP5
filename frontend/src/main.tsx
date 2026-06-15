@@ -1,10 +1,12 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
-import App from './App.tsx'
+import NavBar from './navBar.tsx'
+import Deadline from './deadline.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <NavBar />
+    <Deadline />
   </StrictMode>,
 )

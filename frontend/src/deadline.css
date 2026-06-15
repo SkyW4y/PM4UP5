@@ -1,0 +1,22 @@
+p{
+    font-size: 16px;
+    font-family: "Roboto Slab";
+}
+.deadline_wrapper{
+    margin-left: 7vw;
+    margin-top: 1vh;
+    min-height: 50vh;
+    width: 15vw;
+    background-color: aqua;
+    border-radius: 10px;
+}
+.h_deadline{
+    text-align: center;
+    border-radius: 10px;
+}
+.modal{
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
