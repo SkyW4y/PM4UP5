@@ -2,6 +2,7 @@ from pydantic import BaseModel, ConfigDict
 from datetime import datetime
 from typing import Optional, List
 from app.schemas.users import UserShort
+from app.schemas import SubjectShort
 
 
 class CommentBase(BaseModel):
@@ -96,15 +97,16 @@ class ProjectCreate(ProjectBase):
 class ProjectUpdate(BaseModel):
     name: Optional[str] = None
 
-
 class ProjectShort(ProjectBase):
     id: int
     group_id: int
-
+    subject: SubjectShort
+    project_groups: List[UserShort] = []
+    progress_percent: int
     model_config = ConfigDict(from_attributes=True)
 
 
 class ProjectFull(ProjectShort):
     columns: List[ProjectColumnFull] = []
-
+    project_groups: List[UserShort] = []
     model_config = ConfigDict(from_attributes=True)

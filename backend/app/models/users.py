@@ -14,8 +14,13 @@ class User(Base):
     first_name = Column(String(128), nullable=True)
     last_name = Column(String(128), nullable=True)
     group_id = Column(Integer, ForeignKey("groups.id"), nullable=True)
-    tasks = relationship("UserSubjTasks", back_populates="user", cascade="all, delete-orphan")
     avatar = Column(String(2048), nullable=False, default="url")
+
+    tasks = relationship(
+        "UserSubjTasks",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
 
     group_rel = relationship(
         "Group",
@@ -31,5 +36,5 @@ class UserSubjTasks(Base):
     subject_task_id = Column(Integer, ForeignKey("subject_tasks.id"), nullable=False)
     status = Column(Boolean, default=False, nullable=False)
 
-    user = relationship("User", back_populates="user_subject_tasks")
+    user = relationship("User", back_populates="tasks")
     subject_task = relationship("SubjectTask", back_populates="user_subject_tasks")

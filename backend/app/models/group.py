@@ -8,7 +8,7 @@ class Group(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(128), unique=True, index=True, nullable=False)
-    leader_id = Column(Integer, ForeignKey("users.id"), nullable=True, ondelete="SET NULL")
+    leader_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
 
     users = relationship(
         "User",

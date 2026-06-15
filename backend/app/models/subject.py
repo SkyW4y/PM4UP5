@@ -1,15 +1,15 @@
 from sqlalchemy import Boolean, Column, Integer, String, ForeignKey, Enum, DATE
 from sqlalchemy.orm import relationship
 from app.database import Base
-from enum import Enum
+from enum import Enum as pyEnum
 
 
-class TaskType(str, Enum):
+class TaskType(str, pyEnum):
     HOMEWORK = "homework"
     CLASSWORK = "classwork"
     PROJECT = "project"
 
-class TaskClass(str, Enum):
+class TaskClass(str, pyEnum):
     SOLO = "solo"
     GROUP = "group"
 

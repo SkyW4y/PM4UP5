@@ -36,14 +36,6 @@ class SubjectTaskUpdate(BaseModel):
     deadline: Optional[date] = None
 
 
-class SubjectTaskShort(SubjectTaskBase):
-    id: int
-    subject_id: int
-
-    model_config = ConfigDict(from_attributes=True)
-
-
-
 class SubjectBase(BaseModel):
     name: str
 
@@ -62,6 +54,25 @@ class SubjectShort(SubjectBase):
 
     model_config = ConfigDict(from_attributes=True)
 
+
+class SubjectTaskShort(BaseModel):
+    id: int
+    task_class: TaskClass = TaskClass.SOLO
+    task_type: TaskType = TaskType.HOMEWORK
+    short_description: str
+    deadline: date
+    subject: SubjectShort
+    is_completed: bool = False
+
+    model_config = ConfigDict(from_attributes=True)
+
+class SubjectTaskFull(SubjectTaskBase):
+    id: int
+    subject: SubjectShort
+    group_id: int
+    is_completed: bool = False
+
+    model_config = ConfigDict(from_attributes=True)
 
 class SubjectFull(SubjectShort):
     tasks: List[SubjectTaskShort] = []

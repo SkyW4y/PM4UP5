@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, DateTime
 from sqlalchemy.orm import relationship
 from app.database import Base
 
+from datetime import datetime
 
 class Project(Base):
     __tablename__ = "projects"
@@ -9,8 +10,13 @@ class Project(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(128), unique=True, index=True, nullable=False)
     group_id = Column(Integer, ForeignKey("groups.id"), nullable=False)
+    subject_id = Column(Integer, ForeignKey("subjects.id"), nullable=False)
 
-
+    subject = relationship(
+        "Subject",
+        back_populates="projects",
+        cascade="all, delete-orphan"
+    )
     group = relationship(
         "Group",
         back_populates="projects"

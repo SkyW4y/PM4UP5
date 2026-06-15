@@ -20,6 +20,8 @@ services:
     restart: always
     environment:
       - DATABASE_URL=postgresql://db_user:super_password@db:5432/main_db
+      - PYTHONUNBUFFERED=1
+      - PYTHONIOENCODING=utf-8
     volumes:
       - ./backend:/app        # Для горячей перезагрузки кода при разработке
     ports:
