@@ -5,7 +5,8 @@ ENV PYTHONUNBUFFERED=1
 
 # 3. Устанавливаем системные зависимости для компиляции C++ и работы с Postgres
 RUN apt-get update && apt-get install -y \
-    python3-dev
+    build-essential \
+    libpq-dev
 
 WORKDIR /app
 
