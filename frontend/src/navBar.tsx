@@ -1,8 +1,7 @@
-import './App.css'
+import './navBar.css'
 import './font.css'
 
-function App() {
-
+function NavBar() {
   return (
     <>
       <nav className='high_navBar'>
@@ -10,14 +9,13 @@ function App() {
         <p className='text_navBar'>DashBoard</p>
         <a href="profile.html"><button className='profile_btn'>Профиль</button></a>
       </nav>
-      <aside>
-        
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
+      <aside className='asideBar'>
+        <button className='btn'>1</button>
+        <button className='btn'>2</button>
+        <button className='btn'>3</button>
       </aside>
     </>
   )
 }
 
-export default App
+export default NavBar
