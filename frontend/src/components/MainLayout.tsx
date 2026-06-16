@@ -1,30 +1,38 @@
+import { Outlet} from 'react-router-dom';
+import { useState, ReactNode } from 'react';
+
+import avatarImage from '../assets/hero.png';
 import '../styles/layout.css';
 
-interface LayoutProps {
-    children: ReactNode;
-}
 
-export default function MainLayout({ children }: LayoutProps) {
+export type LayoutContextType = {
+    setTitle: (title: string) => void;
+};
+
+export default function MainLayout() {
+    const [title, setTitle] = useState<string>('');
+
+
     return (
         <div className="layout-container">
-            <header className="header">
-                <div className="page-name">
-                    <span>Dashboard</span>
-                    <div className="page-name-underline"></div>
-                </div>
-                <div className="profile_btn">
-                    <img src="../assets/hero.png" alt="avatar"/>
-                </div>
-            </header>
-            <aside className="Aside">
+            <aside className="sidebar ios-glass">
                 <div className="logo">
-                    <img src="../assets/hero.png" alt="avatar"/>
+                    <img src={avatarImage as string} alt="avatar"/>
                 </div>
                 {/* тут хочу сделать кнопки навигации отдельным компонентом*/}
                 <button>Daaa</button>
             </aside>
+            <header className="header">
+                <div className="page-name">
+                    <span>{title}</span>
+                    <div className="page-name-underline"></div>
+                </div>
+                <div className="profile_btn">
+                    <img src={avatarImage as string} alt="avatar"/>
+                </div>
+            </header>
             <main className="main-content">
-                {children}
+                <Outlet context={{setTitle} satisfies LayoutContextType}/>
             </main>
         </div>
     );

@@ -1,16 +1,21 @@
 :root {
-    --bg-gradient: linear-gradient(135deg, #2c2830 0%, #1a2230 100%);
-    --panel-bg: rgba(255, 255, 255, 0.05);
+    --bg-gradient: linear-gradient(140deg, #ffe8ec 0%, #3f6074 100%);
+    --panel-bg: rgb(0 0 0 / 0.25);
     --card-bg: rgba(255, 255, 255, 0.08);
-    --text-main: #e2e8f0;
+    --text-main: #ffffff;
     --text-muted: #94a3b8;
     --accent: #6366f1;
+    --border-light: rgba(255, 255, 255, 0.1);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    background: var(--bg-gradient);
+    /* background: var(--bg-gradient); */
+    background-image: url("../assets/test-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
     color: var(--text-main);
     font-family: 'Roboto', sans-serif;
     min-height: 100vh;
@@ -22,8 +27,89 @@ body {
     grid-template-columns: 80px 1fr;
     grid-template-rows: 60px 1fr;
     grid-template-areas:
-        "header header"
+        "sidebar header"
         "sidebar main";
     height: 100vh;
 }
 
+.header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-light);
+    background-color: rgb(0 0 0 / 0.06);
+}
+
+.page-name {
+    position: relative;
+    font-size: 1.2rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.profile_btn img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--border-light);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.profile_btn img:hover {
+    transform: scale(1.05);
+}
+
+.sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 0;
+    gap: 20px;
+    background: rgb(0 0 0 / 0.25);
+    backdrop-filter: blur(12px);
+    border-right: 2px solid var(--border-light);
+}
+
+.logo img {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 20px;
+}
+
+.sidebar button {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    border: 1px solid var(--border-light);
+    background-color: rgb(2 2 2 / 0.16);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.sidebar button:hover {
+    background: var(--card-bg);
+    color: var(--text-main);
+    border-color: var(--border-light);
+}
+
+.main-content {
+    grid-area: main;
+    display: flex;
+    gap: 24px;
+    padding: 24px;
+    overflow-x: auto;
+}
+
+.ios-glass, .ios-glass-bordered {
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+.ios-glass-bordered {
+    border-radius: 32px;
+}

@@ -1,0 +1,26 @@
+import { ReactNode } from 'react';
+import "../styles/dashboard-column.css";
+
+interface ColumnProps {
+    title: string;
+    onAddClick?: () => void;
+    children: ReactNode;
+}
+
+export default function DashboardColumn({ title, onAddClick , children }: ColumnProps) {
+    return (
+        <div className="column-wrapper">
+            <div className="column-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: 600 }}>{title}</h3>
+                {onAddClick && (
+                    <button className="add-task-btn" onClick={onAddClick} style={{ background: 'none', border: 'none', color: 'var(--accent)', fontSize: '1.5rem', cursor: 'pointer' }}>
+                        +
+                    </button>
+                )}
+            </div>
+            <div className="column-content">
+                {children}
+            </div>
+        </div>
+    );
+}

@@ -1,20 +1,15 @@
-// import { StrictMode } from 'react'
-// import { createRoot } from 'react-dom/client'
-// import './index.css'
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router.tsx';
+
+import './index.css';
 // import NavBar from './navBar.tsx'
 // import Deadline from './deadline.tsx'
-// import MainLayout from "./components/MainLayout.tsx";
-//
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <NavBar />
-//     <Deadline />
-//   </StrictMode>,
-// )
-import MainLayout from "./components/MainLayout.tsx";
+import App from './App.tsx';
 
-export default function App() {
-    return (
-        <MainLayout></MainLayout>
-    );
-}
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <RouterProvider router={router}/>
+  </StrictMode>,
+);
