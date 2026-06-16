@@ -6,7 +6,7 @@ import { router } from './router.tsx';
 import './index.css';
 // import NavBar from './navBar.tsx'
 // import Deadline from './deadline.tsx'
-import App from './App.tsx';
+//import App from './App.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

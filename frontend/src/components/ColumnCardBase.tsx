@@ -1,27 +1,47 @@
 import { ReactNode } from 'react';
-import "../styles/file.css";
+import "../styles/ColumnCard.css";
 
-interface ColumnCardProps {
+export interface ColumnCardProps {
     subject: string;
     shortDescription: string;
     deadline: string;
     daysLeft: number;
-    wordType: string;
+    workType: string;
     onClick?: () => void;
     children: ReactNode;
+    cardIcon: ReactNode;
 }
 
-export default function DashboardColumn({ title, onAddClick , children }: ColumnProps) {
+export default function ColumnCardBase(
+    {
+        subject,
+        shortDescription,
+        deadline,
+        daysLeft,
+        workType,
+        onClick,
+        children,
+        cardIcon
+    }: ColumnCardProps)
+{
     return (
-        <div className="card-wrapper">
+        <div className="card-wrapper ios-glass-bordered" onClick={onClick}>
             <div className="card-header">
-
+                <div className="card-icon">{cardIcon}</div>
+                <div className="card-subject">
+                    <span>{subject}</span>
+                    <div className="card-text">
+                        <span>{workType}</span>
+                    </div>
+                </div>
             </div>
             <div className="card-body">
+                <span>{shortDescription}</span>
                 {children}
             </div>
             <div className="card-footer">
-
+                <span className="card-deadline">Сдать: {deadline}</span>
+                <span className="card-deadline"> Осталось: {daysLeft}д</span>
             </div>
         </div>
     );
