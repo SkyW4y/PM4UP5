@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, DATE
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -11,6 +11,7 @@ class Project(Base):
     name = Column(String(128), unique=True, index=True, nullable=False)
     group_id = Column(Integer, ForeignKey("groups.id"), nullable=False)
     subject_id = Column(Integer, ForeignKey("subjects.id"), nullable=False)
+    deadline = Column(DATE, nullable=False)
 
     subject = relationship(
         "Subject",
@@ -21,7 +22,7 @@ class Project(Base):
         "Group",
         back_populates="projects"
     )
-    project_groups = relationship(
+    project_group = relationship(
         "ProjectGroup",
         back_populates="project",
         cascade="all, delete-orphan"
@@ -41,7 +42,7 @@ class ProjectGroup(Base):
 
     project = relationship(
         "Project",
-        back_populates="project_groups"
+        back_populates="project_group"
     )
     user = relationship(
         "User",

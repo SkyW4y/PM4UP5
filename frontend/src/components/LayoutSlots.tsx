@@ -4,7 +4,7 @@
  */
 import { useEffect } from 'react';
 import { useOutletContext } from 'react-router-dom';
-//import { LayoutContextType } from './MainLayout.tsx';
+import type { LayoutContextType } from './MainLayout.tsx';
 
 interface HeaderTitleProps {
     children: string;

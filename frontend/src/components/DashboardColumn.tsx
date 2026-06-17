@@ -1,10 +1,10 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import "../styles/dashboard-column.css";
 
 interface ColumnProps {
     title: string;
     onAddClick?: () => void;
-    children: ReactNode;
+    children?: ReactNode;
 }
 
 export default function DashboardColumn({ title, onAddClick , children }: ColumnProps) {

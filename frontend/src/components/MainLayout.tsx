@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { useState, ReactNode } from 'react';
+import { useState } from 'react';
+//import type { ReactNode } from 'react';
 
 import avatarImage from '../assets/hero.png';
 import '../styles/layout.css';

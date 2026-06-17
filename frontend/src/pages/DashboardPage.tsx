@@ -28,34 +28,9 @@ const mockDeadlines = [
     },
 ];
 
-// --- MOCK ДАННЫЕ ДЛЯ КОЛОНКИ ПРОЕКТОВ ---
-const mockProjects = [
-    {
-        id: 101,
-        subject: "Разработка Tralalela",
-        workType: "",
-        deadline: "28.06.2026",
-        daysLeft: 12,
-        cardIcon: "⚡",
-
-        users: [
-            {
-                uid: 112341,
-                username: "gondon",
-                avaUrl: "url на ченить",
-            },
-            {
-                uid: 132341,
-                username: "gondonio",
-                avaUrl: "url на ченить",
-            },
-        ]
-    }
-];
-
-function onCardClick() {
-    alert("Card");
-}
+// function onCardClick() {
+//     alert("Card");
+// }
 
 export default function DashboardPage() {
     return (

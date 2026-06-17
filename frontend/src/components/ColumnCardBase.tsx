@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type {ReactNode} from 'react';
 import "../styles/ColumnCard.css";
 
 export interface ColumnCardProps {
@@ -8,7 +8,7 @@ export interface ColumnCardProps {
     daysLeft: number;
     workType: string;
     onClick?: () => void;
-    children: ReactNode;
+    children?: ReactNode;
     cardIcon: ReactNode;
 }
 
