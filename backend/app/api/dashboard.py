@@ -104,7 +104,7 @@ async def read_projects(
         .filter(models.ProjectGroup.user_id == current_user.id)
         .options(
             selectinload(models.Project.subject),
-            selectinload(models.Project.project_groups).selectinload(models.ProjectGroup.user)
+            selectinload(models.Project.project_group).selectinload(models.ProjectGroup.user)
         )
         .offset(skip)
         .limit(limit)
@@ -125,8 +125,9 @@ async def read_projects(
             id=project.id,
             name=project.name,  # Наследуется из ProjectBase
             group_id=project.group_id,
+            deadline=project.deadline,
             subject=project.subject,
-            project_groups=flat_users,
+            project_group=flat_users,
             progress_percent=mock_progress # Временно
         )
         response_projects.append(project_data)

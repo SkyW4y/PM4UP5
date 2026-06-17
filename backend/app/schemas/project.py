@@ -101,7 +101,8 @@ class ProjectShort(ProjectBase):
     id: int
     group_id: int
     subject: SubjectShort
-    project_groups: List[UserShort] = []
+    deadline: str
+    project_group: List[UserShort] = []
     progress_percent: int
     model_config = ConfigDict(from_attributes=True)
 

@@ -1,0 +1,78 @@
+// --- Интерфейсы того, что получаем с сервера ---
+export interface ApiDeadlineShort {
+    id: number;
+    task_class: string;
+    task_type: string;
+    short_description: string;
+    deadline: string;
+    subject: {
+        name: string;
+        id: number;
+        group_id: number;
+    }
+    is_completed: boolean;
+    icon?: string;
+}
+export interface ApiDeadlineFull extends ApiDeadlineShort {
+    task: string;
+    group_id: number;
+}
+
+export interface ApiProjectShort {
+    id: number;
+    name: string;
+    deadline: string;
+    icon?: string;
+    group_id: number;
+    project_group: Array<{
+        user_id: number;
+        user_name: string;
+        avatar_url: string;
+    }>;
+    subject: {
+        name: string;
+        id: number;
+        group_id: number;
+    }
+    progress_percent: number;
+}
+
+// --- 2. Функции-мапперы (Переводчики) ---
+
+// Маппер для дедлайнов
+export function mapDeadlineShort(api: ApiDeadlineShort) {
+    return {
+        id: api.id,
+        subject: api.subject.name,
+        workType: api.task_type,
+        deadline: new Date(api.deadline).toLocaleDateString("ru-RU"), // Превращаем в "18.06.2026"
+        daysLeft: api.deadline, //TODO: посчитать остаток дней от текущей даты клиента
+        cardIcon: api.icon || "📌",
+        shortDescription: api.short_description|| "Без описания",
+    };
+}
+export function mapDeadlineFull(api: ApiDeadlineFull) {
+    return {
+        ...mapDeadlineShort(api),
+        task: api.task,
+        group_id: api.group_id,
+    };
+}
+
+// Маппер для проектов
+export function mapProjectShort(api: ApiProjectShort) {
+    return {
+        id: api.id,
+        subject: api.subject.name,
+        workType: "Проект",
+        deadline: new Date(api.deadline).toLocaleDateString("ru-RU"),
+        daysLeft: api.deadline, // TODO: посчитать остаток дней от текущей даты клиента
+        cardIcon: api.icon || "⚡",
+        users: (api.project_group || []).map(member => ({
+            uid: member.user_id,
+            username: member.user_name,
+            avaUrl: member.avatar_url
+        })),
+        progress_percent: api.progress_percent
+    };
+}
