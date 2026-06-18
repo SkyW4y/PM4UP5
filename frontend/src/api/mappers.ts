@@ -39,6 +39,18 @@ export interface ApiProjectShort {
 
 // --- 2. Функции-мапперы (Переводчики) ---
 
+function getRemainingDays(date: string) : number {
+    const targetDate = new Date(date);
+    const curDate = new Date();
+
+    targetDate.setHours(0, 0, 0, 0);
+    curDate.setHours(0, 0, 0, 0);
+
+    const diffMs = targetDate.getTime() - curDate.getTime();
+    const msInDays = 24 * 60 * 60 * 1000;
+    return Math.ceil(diffMs / msInDays);
+}
+
 // Маппер для дедлайнов
 export function mapDeadlineShort(api: ApiDeadlineShort) {
     return {
@@ -46,7 +58,7 @@ export function mapDeadlineShort(api: ApiDeadlineShort) {
         subject: api.subject.name,
         workType: api.task_type,
         deadline: new Date(api.deadline).toLocaleDateString("ru-RU"), // Превращаем в "18.06.2026"
-        daysLeft: api.deadline, //TODO: посчитать остаток дней от текущей даты клиента
+        daysLeft: getRemainingDays(api.deadline),
         cardIcon: api.icon || "📌",
         shortDescription: api.short_description|| "Без описания",
     };
@@ -63,10 +75,11 @@ export function mapDeadlineFull(api: ApiDeadlineFull) {
 export function mapProjectShort(api: ApiProjectShort) {
     return {
         id: api.id,
+        name: api.name, // TODO: Добавить срез
         subject: api.subject.name,
         workType: "Проект",
         deadline: new Date(api.deadline).toLocaleDateString("ru-RU"),
-        daysLeft: api.deadline, // TODO: посчитать остаток дней от текущей даты клиента
+        daysLeft:getRemainingDays(api.deadline),
         cardIcon: api.icon || "⚡",
         users: (api.project_group || []).map(member => ({
             uid: member.user_id,

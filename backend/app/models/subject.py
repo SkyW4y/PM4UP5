@@ -21,6 +21,7 @@ class Subject(Base):
     group_id = Column(Integer, ForeignKey("groups.id"), nullable=False)
     #TODO: добавить варианты сохранения иконок
 
+    projects = relationship("Project", back_populates="subject", cascade="all, delete-orphan")
     group = relationship("Group", back_populates="subjects")
     tasks = relationship("SubjectTask", back_populates="subject", cascade="all, delete-orphan")
 

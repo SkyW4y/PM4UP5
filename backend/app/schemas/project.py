@@ -1,5 +1,5 @@
 from pydantic import BaseModel, ConfigDict
-from datetime import datetime
+from datetime import datetime, date
 from typing import Optional, List
 from app.schemas.users import UserShort
 from app.schemas import SubjectShort
@@ -101,7 +101,7 @@ class ProjectShort(ProjectBase):
     id: int
     group_id: int
     subject: SubjectShort
-    deadline: str
+    deadline: date
     project_group: List[UserShort] = []
     progress_percent: int
     model_config = ConfigDict(from_attributes=True)

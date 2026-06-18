@@ -1,0 +1,9 @@
+.modal-container {
+    display: block;
+    position: fixed;
+    width: 400px;
+    height: 300px;
+    top: calc((100vh / 2) - 150px);
+    left: calc((100vw / 2) - 200px);
+    background-color: rgba(0, 0, 0, 0.5);
+}
