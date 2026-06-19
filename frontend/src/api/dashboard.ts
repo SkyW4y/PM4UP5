@@ -5,7 +5,7 @@ import * as Mock from "./mockdata.ts";
 import type { ApiProjectShort, ApiDeadlineShort, ApiDeadlineFull } from "./mappers.ts";
 
 
-const IS_MOCK_DATA: boolean = false; // на время разработки
+const IS_MOCK_DATA: boolean = true; // на время разработки
 
 export const dashboardApi = {
     getDeadlines: async (skip: number = 0, limit: number = 10) => {

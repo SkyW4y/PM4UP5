@@ -24,7 +24,7 @@
     );
     background-size: 300% 100%;
 
-    animation: rgb-flow 4s linear infinite;
+    animation: rgb-flow 8s linear infinite;
 
     box-shadow: 0 0 12px rgba(122, 0, 255, 0.35);
 }
