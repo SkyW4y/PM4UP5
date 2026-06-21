@@ -61,6 +61,7 @@ export function mapDeadlineShort(api: ApiDeadlineShort) {
         daysLeft: getRemainingDays(api.deadline),
         cardIcon: api.icon || "📌",
         shortDescription: api.short_description|| "Без описания",
+        isCompleted: api.is_completed
     };
 }
 export function mapDeadlineFull(api: ApiDeadlineFull) {

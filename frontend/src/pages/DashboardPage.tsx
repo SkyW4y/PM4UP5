@@ -5,7 +5,9 @@ import DashboardColumn from "../components/DashboardColumn.tsx";
 import HeaderSlot from "../components/LayoutSlots.tsx";
 import ColumnCardBase from "../components/ColumnCardBase.tsx";
 import DashboardProjectCard from "../components/DashboardProjectCard.tsx";
-import DetailModal from "../components/DetailModal.tsx";
+import DashboardDeadlineModal from "../components/DashboardDeadlineModal.tsx";
+
+import { useDeadlineModal } from "../hooks/useDeadlineModal.ts";
 
 function onProjectAddClick() {
     alert("Add Project");
@@ -24,33 +26,19 @@ export default function DashboardPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const [activeDeadlineId, setActiveDeadlineId] = useState<number | null>(null);
-    const [modalData, setModalData] = useState<any | null>(null); // TODO: пофиксить any
-    const [isModalLoading, setModalIsLoading] = useState(false);
-
-    const handleCardClick = async (id: number) => {
-        setActiveDeadlineId(id); // Модалка моментально монтируется в DOM
-        setModalIsLoading(true);      // Включаем лоадер внутри неё
-        setModalData(null);      // Сбрасываем старые данные
-
-        try {
-            await new Promise((resolve) => setTimeout(resolve, 800));
-            setModalData({
-                task: "Курсовая работа",
-                description: "Полное ТЗ: фцвфцвфцв",
-            });
-        } catch (error) {
-            console.error("Ошибка загрузки дедлайна", error);
-        } finally {
-            setModalIsLoading(false);
-        }
+    const refreshDeadlines = () => {
+        dashboardApi.getDeadlines().then((data) => setDeadlines(data));
     };
 
-    // Функция закрытия (полностью деструктит модалку)
-    const handleCloseModal = () => {
-        setActiveDeadlineId(null);
-        setModalData(null);
-    };
+    const {
+        isOpen,
+        isLoading: isModalLoading,
+        deadlineData,
+        openModal,
+        closeModal,
+        toggleComplete
+    } = useDeadlineModal(refreshDeadlines);
+
 
     useEffect(() => {
        dashboardApi.getDeadlines().then((data) => {
@@ -98,7 +86,7 @@ export default function DashboardPage() {
                         daysLeft={item.daysLeft}
                         cardIcon={item.cardIcon}
                         shortDescription={item.shortDescription}
-                        onClick={() => handleCardClick(item.id)}
+                        onClick={() => openModal(item.id)}
                     />
                 ))}
             </DashboardColumn>
@@ -116,30 +104,15 @@ export default function DashboardPage() {
                     />
                 ))}
             </DashboardColumn>
-            {activeDeadlineId !== null && (
-                <DetailModal
-                    title={isModalLoading ? "Загрузка..." : modalData?.task || "Детали задачи"}
-                    onClose={handleCloseModal}
-                >
-                    {isModalLoading ? (
-                        // Красивый лоадер или скелетон, пока ждем ответ от API
-                        <div className="modal-loader">
-                            <div className="spinner"></div>
-                            <p>Запрашиваю данные у бэкенда...</p>
-                        </div>
-                    ) : (
-                        // Данные пришли — рендерим детей!
-                        <div className="modal-real-content">
-                            <p className="full-description">{modalData?.description}</p>
-                            <div className="modal-status">
-                                Status: <span className="status-badge">In Progress</span>
-                            </div>
-                        </div>
-                    )}
-                </DetailModal>
+
+            {isOpen && (
+                <DashboardDeadlineModal
+                    isLoading={isModalLoading}
+                    data={deadlineData}
+                    onClose={closeModal}
+                    onChecked={toggleComplete}
+                />
             )}
         </>
     );
 }
-
-// TODO: Доделать стили.

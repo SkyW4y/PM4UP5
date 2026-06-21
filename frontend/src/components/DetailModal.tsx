@@ -15,7 +15,7 @@ export default function DetailModal(props: DetailModalProps) {
             <div className="modal-header">
                 <span className={"modal-title"}>{props.title}</span>
                 {props.headerElement}
-                <button className="modal-close-btn" onClick={props.onClose}>+</button>
+                <button className="modal-close-btn" onClick={props.onClose}>✕</button>
             </div>
             <div className="modal-body">
                 {props.children}
