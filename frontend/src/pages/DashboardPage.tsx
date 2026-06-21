@@ -8,10 +8,14 @@ import DashboardProjectCard from "../components/DashboardProjectCard.tsx";
 import DashboardDeadlineModal from "../components/DashboardDeadlineModal.tsx";
 
 import { useDeadlineModal } from "../hooks/useDeadlineModal.ts";
+import MiniCalendar from "../components/MiniCalendar.tsx";
+import ProgressPieChart from "../components/ProgressPieChart.tsx";
 
 function onProjectAddClick() {
     alert("Add Project");
 }
+
+import "../styles/dashboard-page.css"
 
 type DeadlineItem = Awaited<ReturnType<typeof dashboardApi.getDeadlines>>[number];
 type ProjectItem = Awaited<ReturnType<typeof dashboardApi.getProjects>>[number];
@@ -104,7 +108,15 @@ export default function DashboardPage() {
                     />
                 ))}
             </DashboardColumn>
-
+            <div className="dashboard-right-panel">
+                <div className="dashboard-stats">
+                    <ProgressPieChart percentCompleted={30}/>
+                    <ProgressPieChart percentCompleted={60}/>
+                </div>
+                <MiniCalendar deadlines={deadlines} projects={projects}
+                    onDayClick={(taskId) => openModal(taskId)}
+                />
+            </div>
             {isOpen && (
                 <DashboardDeadlineModal
                     isLoading={isModalLoading}

@@ -16,7 +16,7 @@ export const mockApiDeadlinesShort: ApiDeadlineShort[] = [
         task_class: "Лабораторная работа",
         task_type: "ДЗ",
         short_description: "Сдать лабу №3 по ООП и закоммитить в реп",
-        deadline: "2026-06-19T23:59:59Z", // ISO формат от бэка (удобно парсить)
+        deadline: "2026-06-24", // ISO формат от бэка (удобно парсить)
         subject: {
             id: 10,
             name: "C++ и Архитектура ПО",

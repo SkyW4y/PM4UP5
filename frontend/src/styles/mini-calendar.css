@@ -1,0 +1,99 @@
+.calendar-card {
+    background-color: rgb(28 28 28 / 0.35);
+    backdrop-filter: blur(40px);
+    border-radius: 24px;
+    padding: 24px 20px;
+    width: 100%;
+    max-width: 380px;
+    box-sizing: border-box;
+    border: 1px solid rgb(255 255 255 / 0.05);
+}
+
+.calendar-header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.calendar-icon {
+    position: absolute;
+    left: 4px;
+    color: rgb(255 255 255 / 0.5);
+}
+
+.calendar-month-title {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    justify-items: center;
+}
+
+.calendar-day-cell {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.calendar-day-cell:hover {
+    transform: scale(1.06);
+    filter: brightness(0.95);
+}
+
+.cell-default {
+    background-color: #e0e0e0;
+    color: #1c1c1c;
+}
+
+.cell-active {
+    background-color: #52b764;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgb(82 183 100 / 0.5);
+}
+
+.cell-red {
+    background-color: #dd6b6b;
+    color: #ffffff;
+}
+
+.cell-orange {
+    background-color: #e5934e;
+    color: #ffffff;
+}
+
+.cell-yellow {
+    background-color: #f1c40f;
+    color: #1c1c1c;
+}
+
+.cell-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: rgb(28 28 28 / 0.9);
+    color: #ffffff;
+    font-size: 0.65rem;
+    padding: 1px 4px;
+    border-radius: 4px;
+    font-weight: 600;
+    line-height: 1;
+    border: 1px solid rgb(255 255 255 / 0.2);
+}
