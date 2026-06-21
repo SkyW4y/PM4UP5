@@ -10,6 +10,8 @@ class Group(Base):
     name = Column(String(128), unique=True, index=True, nullable=False)
     leader_id = Column(Integer, ForeignKey("users.id", ondelete="SET NULL"), nullable=True)
 
+    projects = relationship("Project", back_populates="group", cascade="all, delete-orphan")
+
     users = relationship(
         "User",
         back_populates="group_rel",

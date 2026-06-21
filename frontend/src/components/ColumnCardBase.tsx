@@ -6,9 +6,10 @@ export interface ColumnCardProps {
     shortDescription: string;
     deadline: string;
     daysLeft: number;
-    workType: string;
+    workType?: string;
     onClick?: () => void;
     children?: ReactNode;
+    bottomContent?: ReactNode;
     cardIcon: ReactNode;
 }
 
@@ -21,6 +22,7 @@ export default function ColumnCardBase(
         workType,
         onClick,
         children,
+        bottomContent,
         cardIcon
     }: ColumnCardProps)
 {
@@ -36,9 +38,16 @@ export default function ColumnCardBase(
                 </div>
             </div>
             <div className="card-body">
-                <span>{shortDescription}</span>
-                {children}
+                <div className="card-text-flow">
+                     <span className={"card-description-text"}>{shortDescription}</span>
+                    {children}
+                </div>
             </div>
+            {bottomContent && (
+                <div className="bottom-content">
+                    {bottomContent}
+                </div>
+            )}
             <div className="card-footer">
                 <span className="card-deadline">Сдать: {deadline}</span>
                 <span className="card-deadline"> Осталось: {daysLeft}д</span>

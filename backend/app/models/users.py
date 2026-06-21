@@ -27,6 +27,15 @@ class User(Base):
         back_populates="users",
         foreign_keys=[group_id]
     )
+    project_group_rel = relationship(
+        "ProjectGroup",
+        back_populates="user",
+    )
+
+    assigned_cards = relationship(
+        "Card",
+        back_populates="responsible"
+    )
 
 class UserSubjTasks(Base):
     __tablename__ = "user_subject_tasks"

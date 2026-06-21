@@ -1,0 +1,65 @@
+.deadline-modal-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+    color: rgb(210, 210, 210);
+    font-size: 0.9rem;
+}
+
+.checkbox-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.checkbox-label input {
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    accent-color: #3b82f6;
+}
+
+.deadline-modal-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex-grow: 1;
+    gap: 16px;
+}
+
+.deadline-modal-task {
+    display: flex;
+    flex-direction: column;
+    background: rgb(0 0 0 / 0.35);
+    padding: 16px;
+    border-radius: 16px;
+    border: 1px solid rgb(255 255 255 / 0.05);
+
+    flex-grow: 1;
+
+    overflow-y: auto;
+}
+
+.deadline-modal-task p {
+    margin: 8px 0 0 0;
+    font-size: 1.05rem;
+    line-height: 1.4;
+    color: rgb(235, 235, 235);
+}
+
+.deadline-modal-body-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95rem;
+    color: rgb(200, 200, 200);
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+.deadline-modal-body-footer span:last-child {
+    font-weight: 500;
+}

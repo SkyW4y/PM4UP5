@@ -1,45 +1,83 @@
+import { useState, useEffect } from "react";
+import { dashboardApi } from "../api/dashboard.ts";
+
 import DashboardColumn from "../components/DashboardColumn.tsx";
 import HeaderSlot from "../components/LayoutSlots.tsx";
 import ColumnCardBase from "../components/ColumnCardBase.tsx";
+import DashboardProjectCard from "../components/DashboardProjectCard.tsx";
+import DashboardDeadlineModal from "../components/DashboardDeadlineModal.tsx";
+
+import { useDeadlineModal } from "../hooks/useDeadlineModal.ts";
 
 function onProjectAddClick() {
     alert("Add Project");
 }
 
-// --- MOCK ДАННЫЕ ДЛЯ КОЛОНКИ ДЕДЛАЙНОВ ---
-const mockDeadlines = [
-    {
-        id: 1,
-        subject: "Введение в ИТ",
-        workType: "ДЗ",
-        deadline: "18.06.2026",
-        daysLeft: 2,
-        cardIcon: "🐧",
-        short_description: "Лабораторная работа №3"
-    },
-    {
-        id: 2,
-        subject: "П-практика",
-        workType: "ДЗ",
-        deadline: "18.06.2026",
-        daysLeft: 12,
-        cardIcon: "🐧",
-        short_description: "Сделать эту хрень"
-    },
-];
+type DeadlineItem = Awaited<ReturnType<typeof dashboardApi.getDeadlines>>[number];
+type ProjectItem = Awaited<ReturnType<typeof dashboardApi.getProjects>>[number];
 
 // function onCardClick() {
-//     alert("Card");
+//     alert("Card"); //da
 // }
 
 export default function DashboardPage() {
+    const [deadlines, setDeadlines] = useState<DeadlineItem[]>([]);
+    const [projects, setProjects] = useState<ProjectItem[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+
+    const refreshDeadlines = () => {
+        dashboardApi.getDeadlines().then((data) => setDeadlines(data));
+    };
+
+    const {
+        isOpen,
+        isLoading: isModalLoading,
+        deadlineData,
+        openModal,
+        closeModal,
+        toggleComplete
+    } = useDeadlineModal(refreshDeadlines);
+
+
+    useEffect(() => {
+       dashboardApi.getDeadlines().then((data) => {
+           setDeadlines(data);
+           setLoading(false);
+       })
+       .catch((err) => {
+           setError(err.message);
+           setLoading(false);
+       });
+    }, []);
+    useEffect(() => {
+       dashboardApi.getProjects().then((data) => {
+           setProjects(data);
+           setLoading(false);
+       })
+       .catch((err) => {
+           setError(err.message);
+           setLoading(false);
+       });
+    }, []);
+    if (loading) {
+        return (
+            <div>Загрузка...</div>
+        );
+    }
+    if (error) {
+        return (
+            <div>Ошибка ${error}</div>
+        );
+    }
+
     return (
         <>
             <HeaderSlot>
                 {"Dashboard"}
             </HeaderSlot>
             <DashboardColumn title={"Ближайшие дедлайны"}>
-                {mockDeadlines.map((item) => (
+                {deadlines.map((item) => (
                     <ColumnCardBase
                         key={item.id}
                         subject={item.subject}
@@ -47,12 +85,34 @@ export default function DashboardPage() {
                         deadline={item.deadline}
                         daysLeft={item.daysLeft}
                         cardIcon={item.cardIcon}
-                        shortDescription={item.short_description}
-                        onClick={() => {alert(`Card clicked ${item.id}`)}}
+                        shortDescription={item.shortDescription}
+                        onClick={() => openModal(item.id)}
                     />
                 ))}
             </DashboardColumn>
-            <DashboardColumn title={"Групповые проекты"} onAddClick={onProjectAddClick}/>
+            <DashboardColumn title={"Групповые проекты"} onAddClick={onProjectAddClick}>
+                {projects.map((item) => (
+                    <DashboardProjectCard
+                        key={item.id}
+                        subject={item.subject}
+                        daysLeft={item.daysLeft}
+                        cardIcon={item.cardIcon}
+                        shortName={item.name}
+                        progress={item.progress_percent}
+                        deadline={item.deadline}
+                        users={item.users.map((user) => user.avaUrl)}
+                    />
+                ))}
+            </DashboardColumn>
+
+            {isOpen && (
+                <DashboardDeadlineModal
+                    isLoading={isModalLoading}
+                    data={deadlineData}
+                    onClose={closeModal}
+                    onChecked={toggleComplete}
+                />
+            )}
         </>
     );
 }

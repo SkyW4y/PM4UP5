@@ -1,0 +1,46 @@
+.project-container {
+    display: flex;
+    flex-direction: column;
+}
+.project-group {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 12px;
+    margin-top: 4px;
+    margin-bottom: 0;
+
+    float: right;
+}
+.project-user {
+    position: relative;
+    display: block;
+    width: 35px;
+    height: 35px;
+    background-color: rgb(75 75 75);
+    border-radius: 50%;
+    border: 3px solid rgb(240, 240, 240);
+    flex-shrink: 0;
+    transition: transform 0.2s ease, z-index 0.2s ease;
+}
+.project-user + .project-user {
+    margin-left: -12px;
+}
+.project-user img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+.project-user:hover {
+    transform: scale(1.1);
+    z-index: 99;
+}
+.progress-bar-area {
+    clear: both;
+    width: 100%;
+    margin-top: 8px;
+}

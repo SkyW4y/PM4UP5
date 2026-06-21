@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8000/api'; // Исправить на адрес VPS сервера при деплое
+const BASE_URL = 'http://localhost:8000/'; // Исправить на адрес VPS сервера при деплое
 
 export async function apiClient<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const config: RequestInit = {

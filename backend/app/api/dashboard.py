@@ -116,7 +116,7 @@ async def read_projects(
     response_projects = []
 
     for project in projects:
-        flat_users = [pg.user for pg in project.project_groups if pg.user]
+        flat_users = [pg.user for pg in project.project_group if pg.user]
 
         # TODO: Сделать нормальный подсчет прогресса, пока что это заглушка
         mock_progress = 0
