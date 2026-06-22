@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
-import MainLayout from './components/MainLayout';
-import DashboardPage from './pages/DashboardPage'; // Твоя текущая главная с дедлайнами
+import MainLayout from './layout/MainLayout.tsx';
+import DashboardPage from './pages/DashboardPage';
+import ProjectsPage from './pages/ProjectsPage.tsx';
+
 
 
 export const router = createBrowserRouter([
@@ -11,6 +13,10 @@ export const router = createBrowserRouter([
             {
                 index: true,
                 element: <DashboardPage />
+            },
+            {
+                path: "projects",
+                element: <ProjectsPage />
             }
         ]
     }
