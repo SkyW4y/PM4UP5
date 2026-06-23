@@ -1,9 +1,0 @@
-.high_navBar{
-  display: flex;
-  justify-content: space-between;
-}
-.text_navBar{
-  text-align: center;
-  font-family: Roboto Slab;
-  font-size: 24px;
-}

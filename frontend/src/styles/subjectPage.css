@@ -1,0 +1,26 @@
+.subjectWrapper{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    column-gap: 1vw;
+    row-gap: 1vh;
+    place-items: center;
+}
+.subjectCardWrapper{
+    border-radius: 10px;
+    width: 30vw;
+    height: 20vh;
+    backdrop-filter: blur(15px);
+    background:  rgb(0 0 0 / 0.25);
+}
+.subjectLogoCard{
+    margin: auto;
+    width: 20vw;
+    height: 15vh;
+}
+.subjectTitle{
+    margin-top: 5px;
+    text-align: center;
+}
+.subjectTask{
+    text-align: right;
+}
