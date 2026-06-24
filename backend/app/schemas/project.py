@@ -91,7 +91,9 @@ class ProjectBase(BaseModel):
 
 
 class ProjectCreate(ProjectBase):
-    group_id: int
+    group_id: Optional[int] = None
+    subject_id: int
+    deadline: date
 
 
 class ProjectUpdate(BaseModel):

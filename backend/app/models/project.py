@@ -31,6 +31,12 @@ class Project(Base):
         back_populates="project",
         cascade="all, delete-orphan"
     )
+    project_group = association_proxy("project_group_associations", "user")
+    project_groups = association_proxy("project_group_associations", "user") #AWDAWDAWDAWD
+
+    @property
+    def progress_percent(self) -> int:
+        return 0
 
 class ProjectGroup(Base):
     __tablename__ = "project_groups"

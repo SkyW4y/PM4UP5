@@ -13,6 +13,9 @@ app.add_middleware(
 )
 app.include_router(api.dashboard_router)
 app.include_router(api.project_router)
+app.include_router(api.user_router)
+app.include_router(api.auth_router)
+app.include_router(api.subject_router)
 @app.get("/")
 async def root():
     return {"message": "Tralalela API is running"}

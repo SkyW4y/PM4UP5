@@ -11,7 +11,7 @@ from app.database import get_async_db
 from app.depends import auth
 
 
-router = APIRouter(prefix="/user", tags=["Project"])  # noqa
+router = APIRouter(prefix="/user", tags=["User actions"])  # noqa
 
 @router.post("/group", response_model=schemas.GroupFull, status_code=status.HTTP_201_CREATED)
 async def read_project(
@@ -25,8 +25,11 @@ async def read_project(
     if current_user.group_id:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User is already a member of the group")
 
+    group_data = group_in.model_dump()
+    group_data.pop("leader_id", None)
+
     db_group = models.Group(
-        **group_in.model_dump(),
+        **group_data,
         leader_id=current_user.id
     )
     db.add(db_group)

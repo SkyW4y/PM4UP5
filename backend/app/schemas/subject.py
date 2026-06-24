@@ -41,7 +41,7 @@ class SubjectBase(BaseModel):
 
 
 class SubjectCreate(SubjectBase):
-    group_id: int
+    pass
 
 
 class SubjectUpdate(BaseModel):

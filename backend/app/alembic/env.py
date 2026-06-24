@@ -14,7 +14,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from app.database import Base
-from app.models import *
+from app.models import Group, User, Subject, SubjectTask, Project, UserSubjTasks, ProjectGroup, ProjectColumn, Card, Comment
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
