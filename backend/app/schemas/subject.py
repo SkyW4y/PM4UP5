@@ -41,7 +41,7 @@ class SubjectBase(BaseModel):
 
 
 class SubjectCreate(SubjectBase):
-    group_id: int
+    pass
 
 
 class SubjectUpdate(BaseModel):
@@ -78,3 +78,15 @@ class SubjectFull(SubjectShort):
     tasks: List[SubjectTaskShort] = []
 
     model_config = ConfigDict(from_attributes=True)
+
+class SubjectTaskDelta(BaseModel):
+    id: int
+    task: Optional[str] = None
+    task_class: Optional[TaskClass] = None
+    task_type: Optional[TaskType] = None
+    short_description: Optional[str] = None
+    deadline: Optional[date] = None
+
+class SubjectDeltaRequest(BaseModel):
+    name: Optional[str] = None
+    tasks: Optional[List[SubjectTaskDelta]] = None

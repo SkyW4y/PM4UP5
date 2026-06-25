@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Text, DATE, DateTime
+from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship
 from app.database import Base
 
@@ -21,16 +22,28 @@ class Project(Base):
         "Group",
         back_populates="projects"
     )
-    project_group = relationship(
-        "ProjectGroup",
-        back_populates="project",
-        cascade="all, delete-orphan"
-    )
     columns = relationship(
         "ProjectColumn",
         back_populates="project",
         cascade="all, delete-orphan"
     )
+    project_group_links = relationship(
+        "ProjectGroup",
+        back_populates="project",
+        cascade="all, delete-orphan"
+    )
+
+    @property
+    def project_group(self):
+        return [link.user for link in self.project_group_links if link.user]
+
+    @property
+    def project_groups(self):
+        return self.project_group
+
+    @property
+    def progress_percent(self) -> int:
+        return 0
 
 class ProjectGroup(Base):
     __tablename__ = "project_groups"
@@ -41,7 +54,7 @@ class ProjectGroup(Base):
 
     project = relationship(
         "Project",
-        back_populates="project_group"
+        back_populates="project_group_links"
     )
     user = relationship(
         "User",
