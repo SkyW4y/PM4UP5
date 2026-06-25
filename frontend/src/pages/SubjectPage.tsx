@@ -1,50 +1,22 @@
-import {useEffect, useState} from "react";
-
 import { HeaderSlot, ButtonsSlot } from "../components/LayoutSlots.tsx";
 import NavButton from "../components/NavButton.tsx";
-import {dashboardApi} from "../api/dashboard.ts";
-import DashboardProjectCard from "../components/DashboardProjectCard.tsx";
-
 import "../styles/projects-page.css"
+import "../styles/subjectPage.css"
 
 
-// function onCardClick() {
-//     alert("Card"); //da
-// }
-
-type ProjectItem = Awaited<ReturnType<typeof dashboardApi.getProjects>>[number];
-
-export default function ProjectsPage() {
-    const [projects, setProjects] = useState<ProjectItem[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-
-    useEffect(() => {
-       dashboardApi.getProjects().then((data) => {
-           setProjects(data);
-           setLoading(false);
-       })
-       .catch((err) => {
-           setError(err.message);
-           setLoading(false);
-       });
-    }, []);
-
-    if (loading) {
-        return (
-            <div>Загрузка...</div>
-        );
+export default function SubjectPage() {
+    const subjectArr = []
+    for(let i=0;i<=10;i++){
+        subjectArr.push({
+            id: i,
+            title: "zalupa" + i,
+            logo: "/$"
+        })
     }
-    if (error) {
-        return (
-            <div>Ошибка ${error}</div>
-        );
-    }
-
     return (
         <>
             <HeaderSlot>
-                {"Проекты"}
+                {"Предметы"}
             </HeaderSlot>
             <ButtonsSlot>
                 <NavButton isActive={false} link={"/"} icon={
@@ -70,22 +42,18 @@ export default function ProjectsPage() {
                                 }/>
             </ButtonsSlot>
 
-            <div className="projects-selector-container">
-                {projects.map((item, index) => (
-                    <div key={index} className="projects-selector">
-                        <DashboardProjectCard
-                            subject={item.subject}
-                            shortName={item.name}
-                            deadline={item.deadline}
-                            daysLeft={item.daysLeft}
-                            users={ item.users.map((user) => user.avaUrl) }
-                            progress={item.progress_percent}
-                            onClick={() => alert(item.id)}
-                            cardIcon={item.cardIcon}
-                        />
-                    </div>
-                ))}
-            </div>
+                <div className="subjectWrapper">
+                    {subjectArr.map(subject=>{
+                        return <div className="subjectCardWrapper">
+                            <p className="subjectTitle">{subject.title}</p>
+                            <div className="subjectLogoCard">
+                            <img  src={subject.logo} alt="logo" />
+                            </div>
+                            <p className="subjectTask">Задачи: {subject.id}</p>
+                            </div>
+                    })}
+                </div>
+
         </>
     );
 }
