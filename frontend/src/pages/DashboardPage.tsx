@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { dashboardApi } from "../api/dashboard.ts";
+import { dashboardApi } from "../api/api.ts";
 
 import DashboardColumn from "../components/DashboardColumn.tsx";
 import { HeaderSlot, ButtonsSlot } from "../components/LayoutSlots.tsx";
@@ -96,10 +96,10 @@ export default function DashboardPage() {
                     </svg>
                 }/>
                 <NavButton isActive={false} link={"/subject"} icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
-                         className="bi bi-kanban-fill" viewBox="0 0 16 16">
-                        <path
-                            d="M2.5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm5 2h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1m-5 1a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1zm9-1h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
+                      <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
+                      <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
                     </svg>
                 }/>
             </ButtonsSlot>
@@ -109,7 +109,7 @@ export default function DashboardPage() {
                         key={item.id}
                         subject={item.subject}
                         workType={item.workType}
-                        deadline={item.deadline}
+                        deadline={item.deadlineStr}
                         daysLeft={item.daysLeft}
                         cardIcon={item.cardIcon}
                         shortDescription={item.shortDescription}
@@ -125,9 +125,9 @@ export default function DashboardPage() {
                         daysLeft={item.daysLeft}
                         cardIcon={item.cardIcon}
                         shortName={item.name}
-                        progress={item.progress_percent}
-                        deadline={item.deadline}
-                        users={item.users.map((user) => user.avaUrl)}
+                        progress={item.progressPercent}
+                        deadline={item.deadlineStr}
+                        users={item.members.map((user) => user.avaUrl)}
                     />
                 ))}
             </DashboardColumn>

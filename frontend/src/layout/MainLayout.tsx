@@ -9,12 +9,13 @@ import '../styles/layout.css';
 export type LayoutContextType = {
     setTitle: (title: string) => void;
     setButtons?: (buttons: ReactNode[]) => void;
-    setRightControl?: (control: ReactNode) => void;
+    setRightControl?: (rightControl: ReactNode) => void;
 };
 
 export default function MainLayout() {
     const [title, setTitle] = useState<string>('');
     const [buttons, setButtons] = useState<ReactNode[]>([]);
+    const [rightControl, setRightControl] = useState<ReactNode[]>([]);
 
     return (
         <div className="layout-container">
@@ -38,7 +39,7 @@ export default function MainLayout() {
                 </div>
                 <div className="header-right">
                     <div className="page-controls-righ">
-                        ///
+                        {rightControl}
                     </div>
                     <div className="profile_btn">
                         <img src={"https://api.dicebear.com/7.x/bottts/svg?seed=skyw4y"} alt="avatar"/>
@@ -47,7 +48,7 @@ export default function MainLayout() {
 
             </header>
             <main className="main-content">
-                <Outlet context={{setTitle, setButtons} satisfies LayoutContextType}/>
+                <Outlet context={{setTitle, setButtons, setRightControl} satisfies LayoutContextType}/>
             </main>
         </div>
     );
