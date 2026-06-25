@@ -1,10 +1,10 @@
 import base64
 
-from fastapi import APIRouter, status, Depends, HTTPException
+from fastapi import APIRouter, status, Depends, HTTPException, Response
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
-from sqlalchemy import select
+from sqlalchemy import select, update
 
 from app import schemas, models
 from app.database import get_async_db
@@ -172,3 +172,33 @@ async def join_group_by_invite(
     await db.commit()
 
     return {"detail": f"Успешно! Вы добавлены в группу '{group.name}'"}
+
+@router.patch("/tasks/{subject_task_id}/status", status_code=status.HTTP_204_NO_CONTENT)
+async def update_user_task_status(
+        subject_task_id: int,
+        status_in: schemas.UserSubjTasksUpdate,
+        db: AsyncSession = Depends(get_async_db),
+        current_user: models.User = Depends(auth.get_current_user)
+):
+    """
+    Переключение статуса задачи (галочка выполнено/не выполнено) для текущего пользователя
+    """
+    stmt = (
+        update(models.UserSubjTasks)
+        .where(
+            models.UserSubjTasks.subject_task_id == subject_task_id,
+            models.UserSubjTasks.user_id == current_user.id
+        )
+        .values(status=status_in.status)
+    )
+
+    result = await db.execute(stmt)
+    if result.rowcount == 0:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Задача не найдена или не привязана к вашему профилю"
+        )
+
+    await db.commit()
+
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

@@ -84,7 +84,7 @@ async def login_user(
 @router.post("/refresh", response_model=schemas.TokenResponse, status_code=status.HTTP_200_OK)
 async def refresh_jwt(
         db: AsyncSession = Depends(get_async_db),
-        current_user: models.User = Depends(auth.get_current_user)  # Твой метод проверки токена
+        current_user: models.User = Depends(auth.get_current_user)
 ):
     """
     Обновление JWT. Пользователь шлет старый (но еще живой) токен,

@@ -84,6 +84,7 @@ async def read_deadline_detail(
 
     task, status_value = row
     task.is_completed = status_value if status_value is not None else False
+    task.group_id = task.subject.group_id
 
     return task
 
@@ -104,7 +105,7 @@ async def read_projects(
         .filter(models.ProjectGroup.user_id == current_user.id)
         .options(
             selectinload(models.Project.subject),
-            selectinload(models.Project.project_group).selectinload(models.ProjectGroup.user)
+            selectinload(models.Project.project_group_links).selectinload(models.ProjectGroup.user)
         )
         .offset(skip)
         .limit(limit)

@@ -69,8 +69,8 @@ class ProjectColumnBase(BaseModel):
     position: int = 0
 
 
-class ProjectColumnCreate(ProjectColumnBase):
-    project_id: int
+class ProjectColumnCreate(BaseModel):
+    name: str
 
 
 class ProjectColumnUpdate(BaseModel):
@@ -111,5 +111,25 @@ class ProjectShort(ProjectBase):
 
 class ProjectFull(ProjectShort):
     columns: List[ProjectColumnFull] = []
-    project_groups: List[UserShort] = []
     model_config = ConfigDict(from_attributes=True)
+
+class ColumnDelta(BaseModel):
+    id: int
+    name: Optional[str] = None
+    position: Optional[int] = None
+
+class CardDelta(BaseModel):
+    id: int
+    title: Optional[str] = None
+    description: Optional[str] = None
+    deadline_date: Optional[datetime] = None
+    color: Optional[str] = None
+    position: Optional[int] = None
+    column_id: Optional[int] = None
+    responsible_id: Optional[int] = None
+
+class ProjectDeltaRequest(BaseModel):
+    name: Optional[str] = None
+    deadline: Optional[date] = None
+    columns: Optional[List[ColumnDelta]] = None
+    cards: Optional[List[CardDelta]] = None
