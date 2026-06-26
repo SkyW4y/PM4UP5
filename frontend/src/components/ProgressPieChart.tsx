@@ -3,9 +3,10 @@ import "../styles/progress-pie-chart.css";
 
 interface ProgressPieChartProps {
     percentCompleted: number; // 0-100
+    title: string;
 }
 
-export default function ProgressPieChart({ percentCompleted }: ProgressPieChartProps) {
+export default function ProgressPieChart({ percentCompleted, title }: ProgressPieChartProps) {
     const validPercent = Math.min(Math.max(percentCompleted, 0), 100);
     const remainingPercent = 100 - validPercent;
 
@@ -21,7 +22,7 @@ export default function ProgressPieChart({ percentCompleted }: ProgressPieChartP
 
     return (
         <div className="chart-card">
-            <h3 className="chart-title">Процент выполненных работ</h3>
+            <h3 className="chart-title">{title}</h3>
 
             <div className="chart-container">
                 <ResponsiveContainer width="100%" height="100%">

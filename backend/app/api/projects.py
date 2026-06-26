@@ -251,8 +251,10 @@ async def create_card(
     max_pos = max_pos_result.scalar()
     next_position = (max_pos + 1) if max_pos is not None else 0
 
+    db_card_data = card_in.model_dump()
+    db_card_data.pop('position', None)
     db_card = models.Card(
-        **card_in.model_dump(),
+        **db_card_data,
         position=next_position,
         column_id=column_id
     )

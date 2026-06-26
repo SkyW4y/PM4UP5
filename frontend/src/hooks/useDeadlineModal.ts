@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { dashboardApi } from "../api/dashboard.ts";
+import { dashboardApi } from "../api/api.ts";
 
 export interface DetailedDeadline {
     id: number;
-    task: string;
+    task: string | undefined;
     task_type: string;
     deadline: string;
     is_completed: boolean;
@@ -27,9 +27,9 @@ export function useDeadlineModal(onrefreshData?: () => void) {
             await dashboardApi.getDeadlineById(id).then((data) => {
                setData({
                     id: id,
-                    task: data.task,
+                    task: data.taskDetail,
                     task_type: data.workType,
-                    deadline: data.deadline,
+                    deadline: data.deadlineStr,
                     is_completed: data.isCompleted,
                     daysLeft: data.daysLeft,
                     shortDescription: data.shortDescription

@@ -1,16 +1,14 @@
 .modal-container {
-    display: flex; /* Переводим на флекс */
-    flex-direction: column; /* Элементы (хедер и боди) идут друг за другом вертикально */
+    display: flex;
+    flex-direction: column;
     position: fixed;
     width: 600px;
     height: 400px;
-    top: calc((100vh / 2) - 200px);
-    left: calc((100vw / 2) - 300px);
     background-color: rgb(117 117 117 / 0.26);
     overflow: hidden;
     backdrop-filter: blur(100px);
-    border-radius: 28px; /* Добавил закругление самой карточке, чтобы углы не резали глаз */
-    border: 1px solid rgb(255 255 255 / 0.1); /* Тонкий глассморфизм-бордер */
+    border-radius: 28px;
+    border: 1px solid rgb(255 255 255 / 0.1);
     box-shadow: 0 20px 40px rgb(0 0 0 / 0.4);
 }
 
@@ -20,9 +18,8 @@
     align-items: center;
     flex-direction: row;
     background-color: rgb(28 28 28 / 0.42);
-    /* Изменил border-radius, чтобы он аккуратно ложился в верхние углы контейнера */
     border-radius: 28px 28px 0 0;
-    padding: 16px 20px; /* Чистые паддинги вместо процентов */
+    padding: 16px 20px;
     border-bottom: 1px solid rgb(104 104 104 / 0.2);
     box-shadow: rgb(0 0 0 / 0.2) 0 2px 10px;
     box-sizing: border-box;
@@ -33,7 +30,7 @@
     font-weight: 500;
     color: #ffffff;
     line-height: 1.2;
-    /* Убираем margin-left, так как паддинг хедера уже всё выровнял */
+
 }
 
 .modal-close-btn {
@@ -44,7 +41,6 @@
     height: 28px;
     border-radius: 50%;
     cursor: pointer;
-    /* Убрал rotate: 45deg, если ты в DashboardDeadlineModal прокинул нормальный крестик "×" или "✕" */
     font-size: 1.2rem;
     display: flex;
     justify-content: center;
@@ -61,9 +57,44 @@
 .modal-body {
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* ОЧЕНЬ ВАЖНО: боди забирает ВСЁ свободное место от хедера до низа карточки */
-    padding: 20px; /* Чистые внутренние отступы */
-    margin: 0; /* Убираем маргины, работаем паддингами */
+    flex-grow: 1;
+    padding: 20px;
+    margin: 0;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow: auto;
+    scrollbar-width: none;
+
+}
+
+.modal-backdrop-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeInOverlay 0.25s ease-out;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-backdrop-blur .modal-container {
+  width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  animation: scaleUpModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleUpModal {
+  from { transform: scale(0.9) translateY(10px) scaleY(0.2); }
+  to { transform: scale(1) translateY(0) scaleY(1); }
 }

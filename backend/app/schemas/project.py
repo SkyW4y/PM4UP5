@@ -36,7 +36,7 @@ class CardBase(BaseModel):
 
 
 class CardCreate(CardBase):
-    column_id: int
+    pass
 
 
 class CardUpdate(BaseModel):
@@ -53,6 +53,7 @@ class CardShort(CardBase):
     id: int
     column_id: int
     responsible_id: Optional[int] = None
+    is_completed: bool = False
 
     model_config = ConfigDict(from_attributes=True)
 
