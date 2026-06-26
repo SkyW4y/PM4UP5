@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text, DATE, DateTime
+from sqlalchemy import Column, Integer, String, ForeignKey, Text, DATE, DateTime, Boolean
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.orm import relationship
 from app.database import Base
@@ -82,7 +82,8 @@ class Card(Base):
     deadline_date = Column(DateTime, nullable=True)
     color = Column(String(7), nullable=True) # HEX код
     position = Column(Integer, default=0, nullable=False)
-    
+    is_completed = Column(Boolean, nullable=False, default=False)
+
     column_id = Column(Integer, ForeignKey("project_columns.id"), nullable=False)
     responsible_id = Column(Integer, ForeignKey("users.id"), nullable=True)
 

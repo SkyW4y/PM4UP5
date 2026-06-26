@@ -1,7 +1,7 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import {type ReactNode, useState} from 'react';
-//import type { ReactNode } from 'react';
-
+import ProfileBtn from "../components/ProfileBtn.tsx";
+import { useAuth } from '../api/AuthContext.tsx'
 import Logo from '../assets/favicon.svg';
 import '../styles/layout.css';
 
@@ -9,14 +9,20 @@ import '../styles/layout.css';
 export type LayoutContextType = {
     setTitle: (title: string) => void;
     setButtons?: (buttons: ReactNode[]) => void;
-    setRightControl?: (rightControl: ReactNode) => void;
+    setRightControl?: (rightControl: ReactNode[]) => void;
 };
 
 export default function MainLayout() {
     const [title, setTitle] = useState<string>('');
     const [buttons, setButtons] = useState<ReactNode[]>([]);
     const [rightControl, setRightControl] = useState<ReactNode[]>([]);
+    const navigate = useNavigate();
+    const { user, isAuthenticated, logout, loading } = useAuth();
 
+    if (loading) return <div>Проверка авторизации...</div>;
+    if (!isAuthenticated) {
+        navigate('/auth');
+    }
     return (
         <div className="layout-container">
             <aside className="sidebar ios-glass">
@@ -41,9 +47,7 @@ export default function MainLayout() {
                     <div className="page-controls-righ">
                         {rightControl}
                     </div>
-                    <div className="profile_btn">
-                        <img src={"https://api.dicebear.com/7.x/bottts/svg?seed=skyw4y"} alt="avatar"/>
-                    </div>
+                    <ProfileBtn username={user?.username} avatarUrl={user?.avatar} onLogout={logout} />
                 </div>
 
             </header>

@@ -9,8 +9,8 @@ interface ColumnProps {
 
 export default function DashboardColumn({ title, onAddClick , children }: ColumnProps) {
     return (
-        <div className="column-wrapper">
-            <div className="column-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+        <div className="dash-column-wrapper">
+            <div className="dash-column-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
                 <span>{title}</span>
                 {onAddClick && (
                     <button className="add-task-btn" onClick={onAddClick} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.5rem', cursor: 'pointer' }}>
@@ -18,7 +18,7 @@ export default function DashboardColumn({ title, onAddClick , children }: Column
                     </button>
                 )}
             </div>
-            <div className="column-content">
+            <div className="dash-column-content">
                 {children}
             </div>
         </div>

@@ -11,8 +11,8 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-    /* background: var(--bg-gradient); */
-    background-image: url("../assets/test-bg.jpg");
+    background: var(--bg-gradient);
+    /*background-image: url("../assets/test-bg.jpg");*/
     background-repeat: no-repeat;
     background-size: cover;
 
@@ -119,7 +119,7 @@ body {
     display: flex;
     gap: 24px;
     padding: 24px;
-    overflow-x: auto;
+    overflow-x: hidden;
 }
 
 .ios-glass, .ios-glass-bordered {

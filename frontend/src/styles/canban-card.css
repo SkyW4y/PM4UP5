@@ -1,0 +1,237 @@
+.task-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-edit-trigger-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #f5f5f7;
+    border: 1px solid #e8e8e8;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background-color 0.2s;
+    font-size: 11px;
+    z-index: 2;
+}
+
+.task-card:hover .card-edit-trigger-btn,
+.card-edit-trigger-btn.active {
+    opacity: 1;
+}
+
+.card-edit-popover {
+    position: absolute;
+    width: 250px;
+    background: rgba(240, 240, 240, 0.98);
+    border: 1px solid #d2d2d7;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    padding: 14px;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: popoverBlurIn 0.12s ease-out;
+}
+
+@keyframes popoverBlurIn {
+    from { opacity: 0; transform: scale(0.96) translateX(-8px); }
+    to { opacity: 1; transform: scale(1) translateX(0); }
+}
+
+.popover-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d2d2d7;
+    padding-bottom: 6px;
+}
+
+.popover-header h4 {
+    margin: 0;
+    font-size: 13px;
+    color: #1d1d1f;
+    font-weight: 600;
+}
+
+.popover-close-x {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #86868b;
+    cursor: pointer;
+}
+
+.popover-section {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.popover-label {
+    font-size: 12px;
+    color: #1d1d1f;
+    font-weight: 500;
+}
+
+.mini-color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    background: #d2d2d7;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.mini-color-dot {
+    height: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.1s;
+    border: 1px solid rgba(0,0,0,0.1);
+}
+
+.mini-color-dot:hover {
+    transform: scale(1.08);
+}
+
+.mini-color-dot.selected {
+    outline: 2px solid #000;
+}
+
+.reset-color-link {
+    background: none;
+    border: none;
+    color: #0066cc;
+    font-size: 11px;
+    text-align: left;
+    cursor: pointer;
+    padding: 0;
+}
+
+.popover-responsible-ui {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #d2d2d7;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.popover-user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.popover-responsible-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.popover-username {
+    font-size: 12px;
+    color: #1d1d1f;
+}
+
+.popover-sub-edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 11px;
+    padding: 4px;
+}
+
+.card-responsible-static .card-responsible-avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #e8e8e8;
+}
+
+.popover-users-dropdown {
+    background: #ffffff;
+    border: 1px solid #d2d2d7;
+    border-radius: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    margin-top: 4px;
+    animation: dropdownFadeIn 0.1s ease-out;
+}
+
+@keyframes dropdownFadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-user-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.1s;
+    color: #1d1d1f;
+}
+
+.dropdown-user-item:hover {
+    background-color: #f5f5f7;
+}
+
+.dropdown-user-item.selected {
+    background-color: #e8e8ed;
+    font-weight: 600;
+}
+
+.dropdown-user-item img {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-item-name {
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.user-item-username {
+    font-size: 10px;
+    color: #86868b;
+}
+
+.unassign-item {
+    color: #ff4d4f;
+    border-bottom: 1px solid #f0f0f2;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.popover-sub-edit-btn.active {
+    background: #c1c1c7;
+    border-radius: 4px;
+}

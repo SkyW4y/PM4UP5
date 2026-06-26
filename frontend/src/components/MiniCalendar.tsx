@@ -1,8 +1,9 @@
 import "../styles/mini-calendar.css";
+import type {UiDeadline, UiProjectShort} from "../api/mappers.ts";
 
 interface MiniCalendarProps {
-    deadlines: any[];
-    projects: any[];
+    deadlines: UiDeadline[];
+    projects: UiProjectShort[];
     onDayClick?: (id: number) => void;
 }
 
@@ -36,8 +37,8 @@ export default function MiniCalendar({ deadlines, projects, onDayClick }: MiniCa
         const yearStr = date.getFullYear();
         const ruDateString = `${dayStr}.${monthStr}.${yearStr}`;
 
-        const dayDeadlines = deadlines.filter(item => item.deadline === ruDateString);
-        const dayProjects = projects.filter(item => item.deadline === ruDateString);
+        const dayDeadlines = deadlines.filter(item => item.deadlineStr === ruDateString);
+        const dayProjects = projects.filter(item => item.deadlineStr === ruDateString);
         const totalTasks = dayDeadlines.length + dayProjects.length;
 
         if (totalTasks === 0) {

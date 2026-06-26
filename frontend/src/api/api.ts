@@ -109,6 +109,7 @@ export const projectsApi = {
 
     // Патч всей доски (Drag-n-Drop операции)
     patchDelta: async (projectId: number, delta: { name?: string; deadline?: string; columns?: any[]; cards?: any[] }): Promise<void> => {
+        console.log(JSON.stringify(delta));
         return apiClient<void>(`projects/${projectId}/delta`, {
             method: 'PATCH',
             body: JSON.stringify(delta)

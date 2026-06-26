@@ -16,6 +16,7 @@ function onProjectAddClick() {
 }
 
 import "../styles/dashboard-page.css"
+import type {ApiDashboardStats} from "../api/mappers.ts";
 
 type DeadlineItem = Awaited<ReturnType<typeof dashboardApi.getDeadlines>>[number];
 type ProjectItem = Awaited<ReturnType<typeof dashboardApi.getProjects>>[number];
@@ -29,10 +30,27 @@ export default function DashboardPage() {
     const [projects, setProjects] = useState<ProjectItem[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
-
+    const [stats, setStats] = useState<ApiDashboardStats>();
     const refreshDeadlines = () => {
         dashboardApi.getDeadlines().then((data) => setDeadlines(data));
     };
+    const loadStats = async () => {
+        try{
+           const statsData = await dashboardApi.getStats();
+           setStats(statsData);
+        }
+        catch(error){
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        loadStats().then(() => {});
+    }, []);
+
+
 
     const {
         isOpen,
@@ -96,7 +114,7 @@ export default function DashboardPage() {
                     </svg>
                 }/>
                 <NavButton isActive={false} link={"/subject"} icon={
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-journal-bookmark-fill" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" className="bi bi-journal-bookmark-fill" viewBox="0 0 16 16">
                       <path fill-rule="evenodd" d="M6 1h6v7a.5.5 0 0 1-.757.429L9 7.083 6.757 8.43A.5.5 0 0 1 6 8z"/>
                       <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2"/>
                       <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1z"/>
@@ -133,8 +151,14 @@ export default function DashboardPage() {
             </DashboardColumn>
             <div className="dashboard-right-panel">
                 <div className="dashboard-stats">
-                    <ProgressPieChart percentCompleted={30}/>
-                    <ProgressPieChart percentCompleted={60}/>
+                    <ProgressPieChart
+                        percentCompleted={stats?.completed_tasks_by_user ? stats?.completed_tasks_by_user : 0}
+                        title={"Выполнено мной %"}
+                    />
+                    <ProgressPieChart
+                        percentCompleted={stats?.completed_tasks_by_group ? stats?.completed_tasks_by_group : 0}
+                        title={"Выполнено группой %"}
+                    />
                 </div>
                 <MiniCalendar deadlines={deadlines} projects={projects}
                     onDayClick={(taskId) => openModal(taskId)}

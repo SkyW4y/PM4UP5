@@ -69,6 +69,7 @@ export interface ApiCardShort {
     title: string;
     description: string | null;
     deadline_date: string | null;
+    is_completed: boolean;
     color: string | null;
     position: number;
     column_id: number;
@@ -134,6 +135,7 @@ export interface AuthResponse {
 export interface UiDeadline {
     id: number;
     subject: string;
+    subjectId: number;
     workType: 'homework' | 'classwork' | 'project';
     taskClass: 'solo' | 'group';
     deadlineStr: string;
@@ -164,6 +166,7 @@ export interface UiCard {
     color: string | null;
     position: number;
     columnId: number;
+    isCompleted: boolean;
     responsibleId: number | null;
     responsibleUser?: ApiUserShort | null;
     comments?: ApiCommentResponse[];
@@ -206,6 +209,7 @@ export function mapDeadline(api: ApiDeadlineShort | ApiDeadlineFull): UiDeadline
     return {
         id: api.id,
         subject: api.subject.name,
+        subjectId: api.subject.id,
         workType: api.task_type,
         taskClass: api.task_class,
         deadlineStr: new Date(api.deadline).toLocaleDateString("ru-RU"),
@@ -241,6 +245,7 @@ export function mapCard(api: ApiCardShort | ApiCardFull): UiCard {
         title: api.title,
         description: api.description || "",
         deadline: api.deadline_date ? new Date(api.deadline_date).toLocaleDateString("ru-RU") : null,
+        isCompleted: api.is_completed,
         color: api.color,
         position: api.position,
         columnId: api.column_id,

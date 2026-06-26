@@ -1,4 +1,3 @@
-// src/pages/InviteRequiredPage.tsx
 import { useEffect, useState } from 'react';
 import { useOutletContext, Link, useNavigate } from 'react-router-dom';
 import { type LayoutContextType } from '../layout/ServiceLayout';

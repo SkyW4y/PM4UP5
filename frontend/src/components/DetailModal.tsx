@@ -11,14 +11,16 @@ export interface DetailModalProps {
 
 export default function DetailModal(props: DetailModalProps) {
     return (
-        <div className="modal-container ios-glass-bordered">
-            <div className="modal-header">
-                <span className={"modal-title"}>{props.title}</span>
-                {props.headerElement}
-                <button className="modal-close-btn" onClick={props.onClose}>✕</button>
-            </div>
-            <div className="modal-body">
-                {props.children}
+        <div className="modal-backdrop-blur">
+            <div className="modal-container ios-glass-bordered">
+                <div className="modal-header">
+                    <span className={"modal-title"}>{props.title}</span>
+                    {props.headerElement}
+                    <button className="modal-close-btn" onClick={props.onClose}>✕</button>
+                </div>
+                <div className="modal-body">
+                    {props.children}
+                </div>
             </div>
         </div>
     );

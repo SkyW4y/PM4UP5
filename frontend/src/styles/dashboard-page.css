@@ -21,4 +21,12 @@
     flex-direction: row;
     align-items: center;
     flex-grow: 1;
+    z-index: 1;
+}
+
+@media (max-height: 850px) {
+    .dashboard-stats {
+        padding: 16px 14px;
+        max-height: 50%;
+    }
 }
