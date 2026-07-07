@@ -1,5 +1,5 @@
 // client.ts
-const BASE_URL = 'http://localhost:8000/';
+const BASE_URL = 'http://161.104.46.247/api/';
 
 export async function apiClient<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const token = localStorage.getItem('token');
